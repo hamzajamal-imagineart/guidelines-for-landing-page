@@ -75,7 +75,7 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
   },
 ];
 
-/** Rendered as a horizontal strip above the watermark, not as a grid column. */
+/** Rendered inside the brand column, not as a track in the link grid. */
 const COMMUNITY: { label: string; href: string }[] = [
   { label: "Discord", href: "https://discord.com/invite/z7kjUyvAbv" },
   { label: "Twitter / X", href: "https://x.com/Imagineart_x" },
@@ -126,6 +126,28 @@ export function SiteFooter() {
                 Google Play
               </a>
             </div>
+
+            {/* Community — same treatment as a link column, using the brand
+                column's spare vertical space. */}
+            <div>
+              <span className="block text-[11px] font-semibold tracking-[0.5px] text-white/[0.38] mb-5">
+                Community
+              </span>
+              <ul className="flex flex-col gap-3 list-none m-0 p-0">
+                {COMMUNITY.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[13px] leading-[1.4] text-white/55 hover:text-white/90 transition-colors no-underline"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Link columns */}
@@ -155,26 +177,6 @@ export function SiteFooter() {
             ))}
           </div>
 
-        </div>
-      </div>
-
-      {/* Community — horizontal strip */}
-      <div className="max-w-[1240px] mx-auto px-5 md:px-10 pt-2 pb-6">
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-          <span className="text-[11px] font-semibold tracking-[0.5px] text-white/[0.38]">
-            Community
-          </span>
-          {COMMUNITY.map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[13px] leading-[1.4] text-white/55 hover:text-white/90 transition-colors no-underline"
-            >
-              {l.label}
-            </a>
-          ))}
         </div>
       </div>
 
