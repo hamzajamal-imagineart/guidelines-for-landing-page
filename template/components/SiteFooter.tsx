@@ -9,6 +9,7 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
   {
     heading: "ImagineArt AI Studios",
     links: [
+      { label: "Imagine Computer", href: `${BASE}/imagine-computer` },
       { label: "Image Studio", href: `${BASE}/image` },
       { label: "Video Studio", href: `${BASE}/video` },
       { label: "Audio Studio", href: `${BASE}/audio-studio` },
@@ -16,6 +17,18 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
       { label: "Workflow", href: `${BASE}/flow` },
       { label: "Enterprise", href: `${BASE}/business/enterprise` },
       { label: "Teams", href: `${BASE}/teams-plan` },
+    ],
+  },
+  {
+    heading: "Imagine Computer",
+    links: [
+      { label: "AI Chat", href: `${BASE}/imagine-computer/ai-chat` },
+      { label: "AI Spreadsheet Generator", href: `${BASE}/imagine-computer/ai-spreadsheet-generator` },
+      { label: "Creative OS", href: `${BASE}/imagine-computer/ai-creative-os` },
+      { label: "AI Agent", href: `${BASE}/imagine-computer/agentic-ai` },
+      { label: "AI Document Generator", href: `${BASE}/imagine-computer/ai-document-generator` },
+      { label: "AI Website Builder", href: `${BASE}/imagine-computer/ai-website-builder` },
+      { label: "AI Slides Generator", href: `${BASE}/imagine-computer/ai-slides-generator` },
     ],
   },
   {
@@ -35,6 +48,18 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
     links: [
       { label: "Video Translate", href: `${BASE}/apps/video-translate` },
       { label: "HeyGen Avatar", href: `${BASE}/apps/heygen-avatar` },
+      { label: "Seedance 2.0", href: `${BASE}/features/seedance-2-0` },
+      { label: "Sora 2", href: `${BASE}/apps/sora-2` },
+      { label: "Veo 3.1", href: `${BASE}/features/veo-3-1-ai-video-generator` },
+      { label: "Kling 3.0", href: `${BASE}/apps/kling-3.0` },
+      { label: "Pixverse v6", href: `${BASE}/apps/pixverse-v6` },
+      { label: "Seedance 2.5", href: `${BASE}/features/seedance-2-5` },
+      { label: "ImagineArt 1.5", href: `${BASE}/features/imagineart-1-5` },
+      { label: "ImagineArt 2.0", href: `${BASE}/features/imagineart-2-0` },
+      { label: "GPT Image 2", href: `${BASE}/apps/gpt-image-2` },
+      { label: "Nano Banana 2", href: `${BASE}/apps/nano-banana-2` },
+      { label: "Image Upscaler", href: `${BASE}/apps/image-upscaler` },
+      { label: "Flux 2", href: `${BASE}/features/flux-2` },
     ],
   },
   {
@@ -45,17 +70,16 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
     ],
   },
   {
-    heading: "Community",
-    links: [
-      { label: "Discord", href: "https://discord.com/invite/z7kjUyvAbv" },
-      { label: "Twitter / X", href: "https://x.com/Imagineart_x" },
-      { label: "Instagram", href: "https://www.instagram.com/imagineartofficial" },
-    ],
-  },
-  {
     heading: "Pricing",
     links: [{ label: "See Plans", href: `${BASE}/subscription` }],
   },
+];
+
+/** Rendered as a horizontal strip above the watermark, not as a grid column. */
+const COMMUNITY: { label: string; href: string }[] = [
+  { label: "Discord", href: "https://discord.com/invite/z7kjUyvAbv" },
+  { label: "Twitter / X", href: "https://x.com/Imagineart_x" },
+  { label: "Instagram", href: "https://www.instagram.com/imagineartofficial" },
 ];
 
 const SOCIALS: { title: string; href: string; path: string }[] = [
@@ -73,10 +97,10 @@ export function SiteFooter() {
   return (
     <footer className="bg-[#070707] border-t border-white/[0.06] overflow-x-hidden">
       <div className="max-w-[1240px] mx-auto px-5 md:px-10 pt-10 md:pt-14 pb-8">
-        <div className="flex flex-col md:flex-row items-start justify-between gap-8 md:gap-12 flex-wrap">
+        <div className="flex flex-col md:flex-row items-start justify-between gap-8 flex-wrap">
 
           {/* Brand */}
-          <div className="flex flex-row md:flex-col w-full md:w-40 shrink-0 items-start justify-between md:justify-start gap-6 md:gap-8 flex-wrap">
+          <div className="flex flex-col w-full md:w-32 shrink-0 items-start justify-start gap-6 md:gap-8 flex-wrap">
             <img src={withBasePath("/media/footer/logo-icon.svg")} alt="ImagineArt" width={28} height={28} className="block" />
 
             <div className="flex flex-col gap-2">
@@ -105,7 +129,9 @@ export function SiteFooter() {
           </div>
 
           {/* Link columns */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 flex-1 min-w-0">
+          {/* Tracks are content-sized (auto) rather than equal (1fr) so the long
+              "AI Spreadsheet/Document Generator" labels stay on one line. */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(5,auto)] xl:grid-cols-[repeat(6,auto)] justify-between gap-x-6 gap-y-10 flex-1 min-w-0">
             {COLUMNS.map((col) => (
               <div key={col.heading}>
                 <span className="block text-[11px] font-semibold tracking-[0.5px] text-white/[0.38] mb-5">
@@ -129,6 +155,26 @@ export function SiteFooter() {
             ))}
           </div>
 
+        </div>
+      </div>
+
+      {/* Community — horizontal strip */}
+      <div className="max-w-[1240px] mx-auto px-5 md:px-10 pt-2 pb-6">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <span className="text-[11px] font-semibold tracking-[0.5px] text-white/[0.38]">
+            Community
+          </span>
+          {COMMUNITY.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[13px] leading-[1.4] text-white/55 hover:text-white/90 transition-colors no-underline"
+            >
+              {l.label}
+            </a>
+          ))}
         </div>
       </div>
 
