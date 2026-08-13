@@ -20,11 +20,19 @@ Read §1–§3 before writing anything. Read §7 before you touch an asset path.
    template/lib/*.ts                   → src/lib/
    template/components/**              → src/components/
    fonts/google-sans-flex.woff2        → src/app/fonts/
-   assets/imagine-art-wordmark.svg     → public/media/        ← nested, see §7
+   assets/*                            → public/media/        ← nested, see §7
    ```
 
-   `assets/` holds only the shared wordmark, used by the nav and footer. Every
-   other image is page-specific — generate or supply your own and put it under
+   `assets/` holds only the site-wide marks the kit's own components need:
+
+   | File | Used by |
+   |---|---|
+   | `imagine-art-wordmark.svg` | `SiteNav` |
+   | `footer/logo-icon.svg` | `SiteFooter` |
+   | `footer/watermark.svg` | `SiteFooter` |
+
+   Keep the `footer/` subfolder when you copy, so the paths resolve as
+   `/media/footer/…`. Every other image is page-specific — supply your own under
    `public/<folder>/`, never `public/` root.
 
 2. **Wire the font** per `layout-font-setup.tsx`. Google Sans Flex is the only
@@ -154,7 +162,7 @@ placeholder content marked `TODO` — replace it, don't ship it.
 | Component | Notes |
 |---|---|
 | `SiteNav` | Fixed. `variant="onLight" \| "onDark"` for the hero behind it. Compacts to a dark glass pill on scroll; mobile hamburger. Client component — real interaction. |
-| `SiteFooter` | Dark surface. Link columns, app badges, social row. |
+| `SiteFooter` | Dark surface. Logo icon, link columns, social row, and a full-width watermark along the bottom edge. Stays dark regardless of `HERO_THEME` — dark footer and dark scrolled nav pill are the two sanctioned dark surfaces (§2). |
 | `FAQSection` | Two-column: heading left, accordion right. All rows open by default so content is in the initial SSR HTML. Emits `FAQPage` JSON-LD — don't duplicate that schema in `page.tsx`. |
 | `TestimonialsSection` | Two staggered rows on one horizontal track, arrow-button nav, masked edges. Cards duplicated per row for range. |
 | `Button` | See §3. |
