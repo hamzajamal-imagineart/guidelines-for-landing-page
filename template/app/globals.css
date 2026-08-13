@@ -139,6 +139,13 @@
     background: rgb(23 23 23 / 0.12);
     color: rgb(23 23 23);
   }
+  /* Dark surfaces need the inverse: the light-page selection above is a dark
+     tint with near-black text, which disappears against #070707. */
+  footer ::selection,
+  .hero-on-dark ::selection {
+    background: rgb(255 255 255 / 0.16);
+    color: #fff;
+  }
 }
 
 @layer utilities {
