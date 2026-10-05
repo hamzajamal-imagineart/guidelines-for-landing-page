@@ -1,0 +1,4 @@
+/* The kit's stylesheet, plus a source path so Tailwind scans template/:
+   the playground runs from playground/, which sits beside it, not above it. */
+@import "../../template/app/globals.css";
+@source "../../template";

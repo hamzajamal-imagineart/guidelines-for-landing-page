@@ -1,2 +1,7 @@
 .DS_Store
 node_modules/
+.next/
+playground/.next/
+playground/public/
+playground/next-env.d.ts
+playground/tsconfig.tsbuildinfo
