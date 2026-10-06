@@ -17,7 +17,7 @@ Read §1–§3 before writing anything. Read §7 before you touch an asset path.
    template/app/globals.css            → src/app/globals.css
    template/app/page-template.tsx      → src/app/page.tsx
    template/app/layout-font-setup.tsx  → merge into src/app/layout.tsx
-   template/lib/*.ts                   → src/lib/
+   template/lib/*.ts                   → src/lib/          (nav-menu.ts = site nav data)
    template/components/**              → src/components/
    fonts/google-sans-flex.woff2        → src/app/fonts/
    assets/*                            → public/media/        ← nested, see §7
@@ -30,8 +30,9 @@ Read §1–§3 before writing anything. Read §7 before you touch an asset path.
    | `imagine-art-wordmark.svg` | `SiteNav` |
    | `footer/logo-icon.svg` | `SiteFooter` |
    | `footer/watermark.svg` | `SiteFooter` |
+   | `nav/*.jpg` | `SiteNav` dropdown cards |
 
-   Keep the `footer/` subfolder when you copy, so the paths resolve as
+   Keep the `footer/` and `nav/` subfolders when you copy, so the paths resolve as
    `/media/footer/…`. Every other image is page-specific — supply your own under
    `public/<folder>/`, never `public/` root.
 
@@ -42,7 +43,7 @@ Read §1–§3 before writing anything. Read §7 before you touch an asset path.
 4. **Build the hero**, then content sections, then the closing CTA.
 5. **Audit `globals.css`.** It ships complete and proven, but carries rules the
    previous page needed. Delete what yours doesn't use.
-6. **Run §9's checklist before saying you're done.** `tsc --noEmit` is not
+6. **Run §10's checklist before saying you're done.** `tsc --noEmit` is not
    enough — see §7.
 
 ---
@@ -161,7 +162,7 @@ placeholder content marked `TODO` — replace it, don't ship it.
 
 | Component | Notes |
 |---|---|
-| `SiteNav` | Fixed. `variant="onLight" \| "onDark"` for the hero behind it. Compacts to a dark glass pill on scroll; mobile hamburger. Client component — real interaction. |
+| `SiteNav` | Fixed, shared by every page. `variant="onLight" \| "onDark"` for the hero behind it. Compacts to a dark glass pill on scroll. Items with a panel open a mega-menu dropdown on click (the bar turns into the white card it hangs from; Escape or an outside click closes it); under 1080px the same entries become an accordion in a full-screen sheet, cards left out. **All items, copy, links and cards live in `lib/nav-menu.ts`**, not in the component. The "New" badge and tinted card use `--mm-accent-soft`, grey per §2; Figma has it lavender, pending sign-off. Client component — real interaction. |
 | `SiteFooter` | Dark surface. Logo icon, link columns, social row, and a full-width watermark along the bottom edge. Stays dark regardless of `HERO_THEME` — dark footer and dark scrolled nav pill are the two sanctioned dark surfaces (§2). |
 | `FAQSection` | Two-column: heading left, accordion right. All rows open by default so content is in the initial SSR HTML. Emits `FAQPage` JSON-LD — don't duplicate that schema in `page.tsx`. |
 | `TestimonialsSection` | Two staggered rows on one horizontal track, arrow-button nav, masked edges. Cards duplicated per row for range. |
@@ -308,7 +309,23 @@ imports there; `next build` fails on them.
 
 ---
 
-## 9. Pre-ship checklist
+## 9. Working on the kit itself
+
+`playground/` is a tiny Next app that renders `template/` directly (`@/*` maps
+to `../template/*`), so shared components can be developed in a browser.
+
+```
+npm install
+npm run dev      # http://localhost:3200
+npm run build    # the check that matters, see §7
+```
+
+It copies `assets/` into `playground/public/media/` on each run. It is not a
+page template; don't copy it into a project.
+
+---
+
+## 10. Pre-ship checklist
 
 - [ ] `npx next build` passes — not just `tsc --noEmit`
 - [ ] No referenced asset resolves to the export root (`find out -maxdepth 1 -type f`)
