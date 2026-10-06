@@ -48,6 +48,14 @@ export const HERO_SURFACE_CLASS: string = active.surfaceClass;
 export const NAV_VARIANT: ThemeConfig["navVariant"] = active.navVariant;
 
 /**
+ * The page's overall colour scheme. SiteNav's dropdowns and mobile sheet
+ * follow it (white panels on a light page, near-black on a dark one).
+ * Defaults to the hero's theme; set it directly if they differ.
+ */
+export type PageTheme = "light" | "dark";
+export const PAGE_THEME: PageTheme = HERO_THEME;
+
+/**
  * ← SECOND SWITCH: what fills the hero behind the copy.
  *   "photo" — the still above
  *   "video" — HERO_VIDEO on loop
